@@ -1,6 +1,3 @@
-// backend/prisma/seed.js
-// Seeds the DB with sample data so the app isn't empty on first boot.
-
 const { PrismaClient, UserRole, ReportCategory, ReportStatus } = require('@prisma/client');
 const bcrypt = require('bcrypt');
 
@@ -9,7 +6,6 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('🌱 Seeding database...');
 
-  // Wipe in correct order (children before parents)
   await prisma.notification.deleteMany();
   await prisma.upvote.deleteMany();
   await prisma.comment.deleteMany();
@@ -18,7 +14,6 @@ async function main() {
   await prisma.authority.deleteMany();
   await prisma.user.deleteMany();
 
-  // --- Users ---
   const passwordHash = await bcrypt.hash('Password123!', 10);
 
   const admin = await prisma.user.create({
@@ -60,12 +55,11 @@ async function main() {
     },
   });
 
-  // --- Reports ---
   const report1 = await prisma.report.create({
     data: {
       reporterId: citizen.id,
       title: 'Large pothole near Patan Durbar Square',
-      description: 'Deep pothole on the road approaching the south gate. Causing accidents at night.',
+      description: 'Deep pothole on the road approaching the south gate.',
       category: ReportCategory.INFRASTRUCTURE,
       status: ReportStatus.OPEN,
       latitude: 27.6726,
@@ -79,7 +73,7 @@ async function main() {
       reporterId: citizen.id,
       authorityId: wardOfficer.authority.id,
       title: 'Streetlight not working — New Road',
-      description: 'Streetlight at the corner of New Road and Indra Chowk has been out for a week.',
+      description: 'Streetlight at the corner of New Road has been out for a week.',
       category: ReportCategory.UTILITIES,
       status: ReportStatus.ASSIGNED,
       latitude: 27.7041,
@@ -88,7 +82,6 @@ async function main() {
     },
   });
 
-  // --- One comment + one upvote (sanity check relationships) ---
   await prisma.comment.create({
     data: {
       reportId: report1.id,
@@ -107,9 +100,9 @@ async function main() {
   });
 
   console.log('✅ Seed complete');
-  console.log(`   Admin:  admin@crowdfix.np / Password123!`);
-  console.log(`   Officer: ward4@kmc.np / Password123!`);
-  console.log(`   Citizen: citizen@example.com / Password123!`);
+  console.log('   Admin:  admin@crowdfix.np / Password123!');
+  console.log('   Officer: ward4@kmc.np / Password123!');
+  console.log('   Citizen: citizen@example.com / Password123!');
 }
 
 main()
