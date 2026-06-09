@@ -10,6 +10,8 @@ import ReportDetailPage from './pages/ReportDetailPage';
 import NotificationsPage from './pages/NotificationsPage';
 import DashboardPage from './pages/DashboardPage';
 import NotFoundPage from './pages/NotFoundPage';
+import RegisterPage from './pages/RegisterPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
 
 export default function App() {
   return (
@@ -26,6 +28,9 @@ export default function App() {
         <Route path="/report/:id" element={<ReportDetailPage />} />
         <Route path="/notifications" element={<NotificationsPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       </Route>
 
       <Route path="/" element={<Navigate to="/home" replace />} />
