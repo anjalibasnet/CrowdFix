@@ -1,4 +1,4 @@
-// if (!user.emailVerified) throw httpError('Please verify your email before logging in', 403);// backend/src/services/auth.service.js
+// backend/src/services/auth.service.js
 const bcrypt = require('bcrypt'); // change to 'bcryptjs' if that's what you installed
 const prisma = require('../lib/prisma');
 const config = require('../config/env');
@@ -51,8 +51,8 @@ async function login({ email, password }) {
   const valid = await bcrypt.compare(password, user.passwordHash);
   if (!valid) throw httpError('Invalid email or password', 401);
 
-  if (!user.emailVerified) throw httpError('Please verify your email before logging in', 403);
-  if (!user.isActive) throw httpError('Your account has been deactivated', 403);
+  // if (!user.emailVerified) throw httpError('Please verify your email before logging in', 403);
+  // if (!user.isActive) throw httpError('Your account has been deactivated', 403);
 
   const token = signToken({ userId: user.id, role: user.role });
   return {
