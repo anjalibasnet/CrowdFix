@@ -11,7 +11,7 @@ const reportsRoutes = require('./routes/reports.routes');
 const { reportRouter, commentsRouter } = require('./routes/upvotesComments.routes');
 const authorityRoutes = require('./routes/authority.routes');
 const statusRoutes = require('./routes/status.routes');
-const notfound = require('./middleware/notFound.middleware');
+const notfound = require('./middleware/notfound.middleware');
 const errorHandler = require('./middleware/error.middleware');
 
 const app = express();
