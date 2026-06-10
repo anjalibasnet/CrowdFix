@@ -51,7 +51,7 @@ app.use('/api/reports/:id', reportRouter);
 app.use('/api/reports', reportsRoutes);
 
 // 7. 404 (after all routes)
-app.use(notFound);
+app.use(notfound);
 
 // 8. Error handler (must be last)
 app.use(errorHandler);
