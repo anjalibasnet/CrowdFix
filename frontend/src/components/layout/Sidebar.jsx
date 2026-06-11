@@ -13,15 +13,22 @@ const navItems = [
 
 export default function Sidebar() {
   const { user } = useAuthStore();
-  const initials = user && user.name
-    ? user.name.split(' ').map(function(n) { return n[0]; }).join('').toUpperCase().slice(0, 2)
+  const name = user ? user.name : 'User';
+  const role = user ? user.role : 'Citizen';
+  const initials = name !== 'User'
+    ? name.split(' ').map(function(n) { return n[0]; }).join('').toUpperCase().slice(0, 2)
     : '?';
+
+  function getClass(isActive) {
+    var base = 'flex items-center gap-3 px-3 py-2.5 rounded-[10px] text-sm font-medium transition-colors ';
+    return base + (isActive ? 'bg-crimson-soft text-crimson' : 'text-ink-soft hover:bg-bg-warm');
+  }
 
   return (
     <aside className="w-[240px] h-screen bg-surface border-r border-line flex flex-col fixed left-0 top-0">
       <div className="h-16 flex items-center px-6 border-b border-line">
         <span className="font-display text-xl font-bold text-crimson">CrowdFix</span>
-        <span className="font-np text-xl text-indigo ml-1">नेपाल</span>
+        <span className="font-np text-xl text-indigo ml-1">Nepal</span>
       </div>
       <nav className="flex-1 px-3 py-4 space-y-1">
         {navItems.map(function(item) {
@@ -30,9 +37,7 @@ export default function Sidebar() {
             <NavLink
               key={item.to}
               to={item.to}
-              className={function(ref) {
-                return 'flex items-center gap-3 px-3 py-2.5 rounded-[10px] text-sm font-medium transition-colors ' + (ref.isActive ? 'bg-crimson-soft text-crimson' : 'text-ink-soft hover:bg-bg-warm');
-              }}
+              className={function(ref) { return getClass(ref.isActive); }}
             >
               <Icon size={18} />
               {item.label}
@@ -46,8 +51,8 @@ export default function Sidebar() {
             {initials}
           </div>
           <div className="text-sm">
-            <div className="font-medium text-ink">{user ? user.name : 'User'}</div>
-            <div className="text-muted text-xs capitalize">{user ? user.role : 'Citizen'}</div>
+            <div className="font-medium text-ink">{name}</div>
+            <div className="text-muted text-xs capitalize">{role}</div>
           </div>
         </div>
       </div>
