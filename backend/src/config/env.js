@@ -18,10 +18,10 @@ const config = {
     expiresIn: process.env.JWT_EXPIRES_IN || '1h',
   },
   smtp: {
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
+    host: process.env.SMTP_HOST || 'smtp.gmail.com',
+    port: process.env.SMTP_PORT || 587,
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
     from: process.env.SMTP_FROM || 'CrowdFix Nepal <no-reply@crowdfix.np>',
   },
   rateLimit: {
