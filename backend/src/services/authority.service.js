@@ -1,5 +1,5 @@
-const { notifyStatusChange } = require('./notification.service');
 const prisma = require('../lib/prisma');
+const { notifyStatusChange } = require('./notification.service');
 
 function httpError(message, statusCode) {
   const err = new Error(message);

@@ -17,10 +17,9 @@ async function notifyStatusChange({ report, newStatus }) {
       text: `Hi ${report.reporter.name},\n\nYour report "${report.title}" has been updated.\n\nNew Status: ${newStatus}\n${statusMessages[newStatus] || ''}\n\nView your reports: https://crowdfix-frontend.vercel.app/my-reports\n\nBest regards,\nCrowdFix Nepal Team`,
     });
 
-    console.log(`✓ Notification sent to ${report.reporter.email} for report ${report.id}`);
+    console.log(`✓ Notification sent to ${report.reporter.email}`);
   } catch (error) {
     console.error('Notification error:', error.message);
-    // Don't throw — email failure shouldn't break the status update
   }
 }
 
