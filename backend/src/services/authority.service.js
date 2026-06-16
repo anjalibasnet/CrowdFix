@@ -1,3 +1,4 @@
+const { notifyStatusChange } = require('./notification.service');
 const prisma = require('../lib/prisma');
 
 function httpError(message, statusCode) {
@@ -44,6 +45,9 @@ async function updateStatus({ reportId, newStatus, userId, resolutionNote }) {
       authority: { select: { id: true, jurisdiction: true } },
     },
   });
+
+  // Send notification to reporter (FR-22)
+  await notifyStatusChange({ report: updated, newStatus });
 
   return updated;
 }
